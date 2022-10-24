@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>登录页</title>
+</head>
+
+<body>
+    <form id="signInForm">
+        <div>
+            <label for="nameInput">用户名<input id="nameInput" type="text" name="name"></label>
+        </div>
+        <div>
+            <label for="passowrdInput">密码<input id="passowrdInput" type="text" name="password"></label>
+        </div>
+        <div>
+            <button id='cookie-login' type="submit">cookie 登录</button>
+            <button id='session-login' type="submit">session 登录</button>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('#cookie-login').on('click', (e) => {
+            let name = $('#nameInput').val()
+            let password = $('#passowrdInput').val()
+            $.ajax({
+                url: '/signIn-cookie',
+                method: 'POST',
+                contentType: 'text/json;charset=utf-8',
+                data: JSON.stringify({ name, password })
+            }).then(() => {
+                alert('登录成功')
+                location.href = '/home-cookie-login'
+            }, () => { })
+        })
+        $('#session-login').on('click', (e) => {
+            let name = $('#nameInput').val()
+            let password = $('#passowrdInput').val()
+            $.ajax({
+                url: '/signIn-session',
+                method: 'POST',
+                contentType: 'text/json;charset=utf-8',
+                data: JSON.stringify({ name, password })
+            }).then(() => {
+                alert('登录成功')
+                location.href = '/home-session-login'
+            }, () => { })
+        })
+        $('#signInForm').on('submit', (e) => {
+            e.preventDefault()
+        })
+    </script>
+</body>
+
+</html>

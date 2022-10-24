@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>注册页</title>
+</head>
+
+<body>
+    <form id="registerForm">
+        <div>
+            <label for="nameInput">用户名<input id="nameInput" type="text" name="name"></label>
+        </div>
+        <div>
+            <label for="passowrdInput">密码<input id="passowrdInput" type="text" name="password"></label>
+        </div>
+        <div>
+            <button type="submit">注册</button>
+        </div>
+    </form>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+        crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('#registerForm').on('submit', (e) => {
+            e.preventDefault()
+            let name = $('#nameInput').val()
+            let password = $('#passowrdInput').val()
+            $.ajax({
+                url: '/register',
+                method: 'POST',
+                contentType: 'text/json;charset=utf-8',
+                data: JSON.stringify({ name, password })
+            }).then(() => {
+                alert('注册成功')
+                location.href = '/login.html'
+            }, () => { })
+
+            // 原生 AJAX POST 数据
+            // let xhr = new XMLHttpRequest()
+            // xhr.open('POST', '/register')
+            // xhr.setRequestHeader("Content-Type", "text/json;charset=utf-8")
+            // xhr.onreadystatechange = () => {
+            //     if (xhr.readyState = 4 && xhr.status === 200) {
+            //         console.log('success');
+            //     }
+            // }
+            // xhr.send(JSON.stringify({ name, password }))
+        })
+    </script>
+</body>
+
+</html>
