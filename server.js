@@ -30,7 +30,7 @@ let server = http.createServer(function (request, response) {
             array.push(chunk)
         })
         request.on('end', () => {
-            let string = Buffer.concat(array).toString()
+            let string = Buffer.concat(array).toString() // array 接收的是一个 Buffer 实例，需要连接起来
             let obj = JSON.parse(string)
             let user = usersArray.find((user) => user.name === obj.name && user.password === obj.password)
             if (user === undefined) {
